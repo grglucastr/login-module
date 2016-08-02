@@ -40,7 +40,18 @@ authRouter.route('/profile').all(function(req, res, next){
 	}
 	next();
 }).get(function(req, res){
-	res.json(req.user);
+	res.render('profile', {title:req.user.username + ' - Profile', user:req.user})
+});
+
+authRouter.route('/signout').all(function(req, res, next){
+	if(!req.user){
+		res.redirect('/');
+	}
+	next();
+}).get(function(req, res){
+	req.logout();
+	req.session.destroy();
+	res.redirect('/');
 });
 
 module.exports = authRouter;
