@@ -1,0 +1,25 @@
+{
+  "name": "login-module",
+  "description": "A module that implements a authentication and authorization",
+  "main": "",
+  "authors": [
+    "George Bentes <george.bentes@gmail.com>"
+  ],
+  "license": "GNU V.3",
+  "keywords": [
+    "nodejs",
+    "passportjs"
+  ],
+  "homepage": "https://github.com/grglucastr/login-module",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "/public/libs",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^3.3.7"
+  }
+}
