@@ -4,7 +4,7 @@ This is a login module made with the MEAN Stack and Passport Middleware.
 ##Tecnologies 
 This project uses the following tecnologies:
 * ExpressJS
-* AngularJS
+* PassportJS
 * MongoDB with Monk
 * Node JS server
 * EJS for the views
