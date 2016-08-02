@@ -4,14 +4,19 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var engine = require('ejs-locals');
+var passport = require('passport');
+var session = require('express-session');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
+var authRoutes = require('./routes/authRoutes');
 
 var app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
+app.engine('ejs', engine);
 app.set('view engine', 'ejs');
 
 // uncomment after placing your favicon in /public
@@ -21,9 +26,12 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(session({secret: 'loginapp'})) // <--
+require('./routes/config/passport.js')(app);
 
 app.use('/', routes);
 app.use('/users', users);
+app.use('/auth', authRoutes);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
