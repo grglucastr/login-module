@@ -1,0 +1,62 @@
+<% layout('layout') -%>
+
+<div class="row">
+	<div class="col-md-4 col-sm-4 col-xs-12">
+		<h2 class="text-center">Sign Up</h2>
+		<form name="signUpForm" class="form-horizontal" action="/auth/signUp" method="post">
+			<div class="form-group">
+				<label for="username" class="col-md-4 col-sm-4 col-xs-12">
+					Username:
+				</label>
+				<div class="col-md-8 col-sm-8 col-xs-12">
+					<input type="text" class="form-control" name="username" id="username">
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="password" class="col-md-4 col-sm-4 col-xs-12">
+					Password:
+				</label>
+				<div class="col-md-8 col-sm-8 col-xs-12">
+					<input type="password" class="form-control" name="password" id="password">
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-md-8 col-md-offset-4 col-sm-8 col-sm-offset-4 col-xs-12">
+					<button class="btn btn-success" type="submit">
+						Sign Up
+					</button>
+				</div>
+			</div>
+		</form>
+	</div>
+	<div class="col-md-4 col-md-offset-2 col-sm-4 col-sm-offset-2 col-xs-12">
+		<h2 class="text-center">Sign In</h2>
+		<form name="signInForm" class="form-horizontal" action="/auth/signIn" method="post">
+			<div class="form-group">
+				<label for="username_si" class="col-md-4 col-sm-4  col-xs-12">
+					Username:
+				</label>
+				<div class="col-md-8 col-sm-8 col-xs-12">
+					<input type="text" class="form-control" name="username" id="username_si">
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="password_si" class="col-md-4 col-sm-4 col-xs-12">
+					Password:
+				</label>
+				<div class="col-md-8 col-sm-8 col-xs-12">
+					<input type="password" class="form-control" name="password" id="password_si">
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-md-8 col-md-offset-4 col-sm-8 col-sm-offset-4 col-xs-12">
+					<button class="btn btn-primary" type="submit">
+						Sign In
+					</button>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+
+
