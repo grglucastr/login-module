@@ -7,7 +7,7 @@ var db = monk('localhost:27017/appLoginDB');
 module.exports = function () {
 	passport.use(new FacebookStrategy({
 		clientID: '1441798922500688',
-		clientSecret: FACEBOOK_APP_SECRET,
+		clientSecret: 'FACEBOOK_APP_SECRET',
 		callbackURL: "localhost:3000/auth/facebook/callback"
 	}, function(accessToken, refreshToken, profile, done){
 		var user = {
