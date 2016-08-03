@@ -54,4 +54,12 @@ authRouter.route('/signout').all(function(req, res, next){
 	res.redirect('/');
 });
 
+authRouter.get('/auth/facebook', passport.authenticate('facebook'));
+
+authRouter.get('/auth/facebook/callback',
+			   	passport.authenticate('facebook', { successRedirect:'/auth/profile',
+													failureRedirect:'/'
+												  }));
+
+
 module.exports = authRouter;
