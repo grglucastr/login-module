@@ -20,5 +20,11 @@
     "passport-facebook": "^2.1.1",
     "passport-local": "^1.0.0",
     "serve-favicon": "~2.3.0"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-inject": "^4.1.0",
+    "gulp-nodemon": "^2.1.0",
+    "wiredep": "^4.0.0"
   }
 }
