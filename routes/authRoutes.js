@@ -5,61 +5,39 @@ var monk = require('monk');
 var db = monk('localhost:27017/appLoginDB');
 var passport = require('passport');
 
+var router = function () {
+
+	var authController = require('../controllers/authController.js')(db);
 /*
-authRouter.use(function(req, res, next){
-	if(!req.user){
-		res.redirect('/');
-	}
-	next();
-});
-*/
-
-authRouter.post('/signUp', function(req, res){
-	console.log(req.body);
-
-	var collection = db.collection('users');
-	var user = {
-		username: req.body.username,
-		password:req.body.password
-	};
-
-	collection.insert(user, function(err, results){
-		req.login(results, function(){
-			res.redirect('/auth/profile');
-		});
+	authRouter.use(function(req, res, next){
+		if(!req.user){
+			res.redirect('/');
+		}
+		next();
 	});
-});
+*/
+	authRouter.post('/signUp', authController.signUp);
 
-authRouter.post('/signIn', passport.authenticate('local', {failureRedirect: '/'}), function(req, res){
-	res.redirect('/auth/profile');
-});
+	authRouter.post('/signIn', passport.authenticate('local',
+													 {failureRedirect: '/'}), authController.signIn);
 
-authRouter.route('/profile').all(function(req, res, next){
-	if(!req.user){
-		res.redirect('/');
-	}
-	next();
-}).get(function(req, res){
-	res.render('profile', {title:req.user.username + ' - Profile', user:req.user})
-});
+	authRouter.route('/profile')
+			  .all(authController.authUserRequired)
+			  .get(authController.goProfile);
 
-authRouter.route('/signout').all(function(req, res, next){
-	if(!req.user){
-		res.redirect('/');
-	}
-	next();
-}).get(function(req, res){
-	req.logout();
-	req.session.destroy();
-	res.redirect('/');
-});
+	authRouter.route('/signout')
+			  .all(authController.authUserRequired)
+			  .get(authController.signOut);
 
-authRouter.get('/auth/facebook', passport.authenticate('facebook'));
+	authRouter.get('/auth/facebook', passport.authenticate('facebook'));
 
-authRouter.get('/auth/facebook/callback',
-			   	passport.authenticate('facebook', { successRedirect:'/auth/profile',
-													failureRedirect:'/'
-												  }));
+	authRouter.get('/auth/facebook/callback',
+		passport.authenticate('facebook', {
+			successRedirect: '/auth/profile',
+			failureRedirect: '/'
+		}));
 
+	return authRouter;
+};
 
-module.exports = authRouter;
+module.exports = router;
