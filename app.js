@@ -10,7 +10,7 @@ var session = require('express-session');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
-var authRoutes = require('./routes/authRoutes');
+var authRoutes = require('./routes/authRoutes')();
 
 var app = express();
 
