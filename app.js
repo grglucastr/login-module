@@ -7,6 +7,9 @@ var bodyParser = require('body-parser');
 var engine = require('ejs-locals');
 var passport = require('passport');
 var session = require('express-session');
+var flash = require('connect-flash');
+var mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost/appLoginDB');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
@@ -28,9 +31,10 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(flash());
 app.use(session({
-		secret: 'loginapp'
-	})); // <--
+	secret: 'loginapp'
+})); // <--
 require('./routes/config/passport.js')(app);
 
 app.use('/', routes);
@@ -63,6 +67,7 @@ if (app.get('env') === 'development') {
 app.use(function (err, req, res, next) {
 	res.status(err.status || 500);
 	res.render('error', {
+		title: 'Error',
 		message: err.message,
 		error: {}
 	});
