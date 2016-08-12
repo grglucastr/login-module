@@ -1,41 +1,38 @@
 var express = require('express');
 var authRouter = express.Router();
-var mongo = require('mongodb');
-var monk = require('monk');
-var db = monk('localhost:27017/appLoginDB');
 var passport = require('passport');
+var User = require('../models/user');
 
 var router = function () {
 
-	var authController = require('../controllers/authController.js')(db);
-/*
-	authRouter.use(function(req, res, next){
-		if(!req.user){
-			res.redirect('/');
-		}
-		next();
-	});
-*/
-	authRouter.post('/signUp', authController.signUp);
+	var authController = require('../controllers/authController.js')(User);
+	var passportOptions = {
+		successRedirect:'/auth/profile',
+		failureRedirect: '/',
+		failureFlash: true
+	};
 
-	authRouter.post('/signIn', passport.authenticate('local',
-													 {failureRedirect: '/'}), authController.signIn);
+	/*
+		authRouter.use(function(req, res, next){
+			if(!req.user){
+				res.redirect('/');
+			}
+			next();
+		});
+	*/
+	authRouter.post('/signUp', authController.signUp);
+	authRouter.post('/signIn', passport.authenticate('local', passportOptions));
 
 	authRouter.route('/profile')
-			  .all(authController.authUserRequired)
-			  .get(authController.goProfile);
+		.all(authController.authUserRequired)
+		.get(authController.goProfile);
 
 	authRouter.route('/signout')
-			  .all(authController.authUserRequired)
-			  .get(authController.signOut);
+		.all(authController.authUserRequired)
+		.get(authController.signOut);
 
 	authRouter.get('/auth/facebook', passport.authenticate('facebook'));
-
-	authRouter.get('/auth/facebook/callback',
-		passport.authenticate('facebook', {
-			successRedirect: '/auth/profile',
-			failureRedirect: '/'
-		}));
+	authRouter.get('/auth/facebook/callback', passport.authenticate('facebook', passportOptions));
 
 	return authRouter;
 };
