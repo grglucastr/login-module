@@ -1,15 +1,16 @@
-var authController = function (db) {
+var authController = function (User) {
 
 	var signUp = function (req, res) {
-
-		var collection = db.collection('users');
-		var user = {
-			username: req.body.username,
+		var newUser = new User({
+			name: req.body.name,
+			email: req.body.email,
 			password: req.body.password
-		};
+		});
 
-		collection.insert(user, function (err, results) {
-			req.login(results, function () {
+		newUser.save(function (err, user) {
+			showError(err, res);
+
+			req.login(user, function () {
 				res.redirect('/auth/profile');
 			});
 		});
@@ -33,10 +34,25 @@ var authController = function (db) {
 	};
 
 	var goProfile = function (req, res) {
+		var user = req.user;
+		var arrName = user.name.split(' ');
+		var displayName = `${arrName[0]} ${arrName[arrName.length - 1]}`;
+		user.displayName = displayName;
+
 		res.render('profile', {
 			title: req.user.username + ' - Profile',
-			user: req.user
+			user: user
 		});
+	};
+
+	var showError = function (err, res) {
+		if (err) {
+			res.status(err.status || 500);
+			res.render('error', {
+				message: err.message,
+				error: {}
+			});
+		}
 	};
 
 	return {
@@ -44,7 +60,7 @@ var authController = function (db) {
 		signIn: signIn,
 		signOut: signOut,
 		authUserRequired: authUserRequired,
-		goProfile:goProfile,
+		goProfile: goProfile,
 	};
 };
 
