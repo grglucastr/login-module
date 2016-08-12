@@ -16,5 +16,5 @@ module.exports = function (app) {
 
 	// This file belows, deal with the database stuff...
 	require('./strategies/local.strategy')();
-	//require('./strategies/facebook.strategy')();
+	require('./strategies/facebook.strategy')();
 }
