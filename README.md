@@ -1,7 +1,7 @@
 # Login Module
 This is a login module made with the MEAN Stack and Passport Middleware.
 
-##Tecnologies 
+##Technologies 
 To mantain this project, you should be albe to handle the following tecnologies:
 
 * Gulp JS (optional, but recommended)
