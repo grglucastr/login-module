@@ -10,7 +10,7 @@ module.exports = function () {
 		callbackURL: 'http://localhost:3000/auth/facebook/callback',
 		profileFields: ['id', 'displayName', 'email', 'profileUrl', 'photos']
 	}, function (accessToken, refreshToken, profile, done) {
-		userService.createUserByProfile(profile, function(err, user){
+		userService.findUserByProfile(profile, function(err, user){
 			if(user){
 				done(null, user);
 			}else{
