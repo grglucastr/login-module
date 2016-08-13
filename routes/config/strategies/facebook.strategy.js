@@ -10,24 +10,13 @@ module.exports = function () {
 		callbackURL: 'http://localhost:3000/auth/facebook/callback',
 		profileFields: ['id', 'displayName', 'email', 'profileUrl', 'photos']
 	}, function (accessToken, refreshToken, profile, done) {
-
-		userService.checkUserExistsProfile(profile, function(err, userFound){
-
-		});
-		var newUser = new User({
-			name: profile.displayName,
-			email: profile.emails[0].value,
-			provider: profile.provider,
-			providerID: profile.id,
-			photo: profile.photos[0].value
-		});
-
-		newUser.save(function (err, user) {
-			if (err) {
-				console.error(`\n\n Error on save the user through Facebook: \n ${err} \n\n`);
-				done(err);
-			} else {
+		userService.createUserByProfile(profile, function(err, user){
+			if(user){
 				done(null, user);
+			}else{
+				userService.createUserByProfile(profile, function(err, user){
+					done(null, user);
+				});
 			}
 		});
 	}));
