@@ -31,14 +31,16 @@ var userServices = function (User) {
 		findUser(userCriteria, callback);
 	};
 
-	var checkUserExistsProfile = function (profile, callback) {
+	var findUserByProfile = function (profile, callback) {
 		var userCriteria = {
 			email: profile.emails[0].value,
 			provider: profile.provider,
 			providerID: profileID
 		};
 
-		findUser(userCriteria, callback);
+		User.findOne(userCriteria, function(err, user) {
+			callback(err, user);
+		});
 
 	};
 
@@ -56,7 +58,7 @@ var userServices = function (User) {
 		createUser: createUser,
 		createUserByProfile: createUserByProfile,
 		checkUserExists: checkUserExists,
-		checkUserExistsProfile: checkUserExistsProfile
+		findUserByProfile: findUserByProfile
 	};
 };
 
