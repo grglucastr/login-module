@@ -28,32 +28,35 @@ var userServices = function (User) {
 
 	var checkUserExists = function (email, callback) {
 		var userCriteria = {email: email};
-		User.findOne(userCriteria, function(err, user){
-			var userFound = false;
-			if(user){
-				userFound = true;
-			}
-			callback(err, userFound);
-		});
+		findUser(userCriteria, callback);
 	};
 
-	var findUserByProfile = function (profile, callback) {
+	var checkUserExistsProfile = function (profile, callback) {
 		var userCriteria = {
 			email: profile.emails[0].value,
 			provider: profile.provider,
 			providerID: profileID
 		};
 
-		User.findOne(userCriteria, function (err, user) {
-			callback(err, user);
-		});
+		findUser(userCriteria, callback);
+
 	};
+
+	var findUser = function(criteria, callback){
+		User.findOne(criteria, function(err, user) {
+			var userFound = false;
+			if(user){
+				userFound = true;
+			}
+			callback(err, userFound);
+		});
+	}
 
 	return {
 		createUser: createUser,
 		createUserByProfile: createUserByProfile,
 		checkUserExists: checkUserExists,
-		findUserByProfile: findUserByProfile
+		checkUserExistsProfile: checkUserExistsProfile
 	};
 };
 

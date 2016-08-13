@@ -1,6 +1,7 @@
 var passport = require('passport');
 var FacebookStrategy = require('passport-facebook').Strategy;
 var User = require('../../../models/user');
+var userService = require('../../../services/user')(User);
 
 module.exports = function () {
 	passport.use(new FacebookStrategy({
@@ -10,6 +11,9 @@ module.exports = function () {
 		profileFields: ['id', 'displayName', 'email', 'profileUrl', 'photos']
 	}, function (accessToken, refreshToken, profile, done) {
 
+		userService.checkUserExistsProfile(profile, function(err, userFound){
+
+		});
 		var newUser = new User({
 			name: profile.displayName,
 			email: profile.emails[0].value,
