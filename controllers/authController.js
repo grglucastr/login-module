@@ -45,7 +45,7 @@ var authController = function (User) {
 		user.displayName = displayName;
 
 		res.render('profile', {
-			title: req.user.username + ' - Profile',
+			title: user.displayName + ' - Profile',
 			user: user
 		});
 	};
