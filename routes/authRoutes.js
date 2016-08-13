@@ -31,8 +31,8 @@ var router = function () {
 		.all(authController.authUserRequired)
 		.get(authController.signOut);
 
-	authRouter.get('/auth/facebook', passport.authenticate('facebook'));
-	authRouter.get('/auth/facebook/callback', passport.authenticate('facebook', passportOptions));
+	authRouter.get('/facebook', passport.authenticate('facebook'));
+	authRouter.get('/facebook/callback', passport.authenticate('facebook', passportOptions));
 
 	return authRouter;
 };
