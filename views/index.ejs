@@ -3,6 +3,19 @@
 <div class="row">
 	<div class="col-md-4 col-sm-4 col-xs-12">
 		<h2 class="text-center">Sign Up</h2>
+
+		<% if(errorSignUpMessage != ''){ %>
+
+		<div class="alert alert-danger alert-dismissible fade in" role="alert">
+			<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span>
+			</button>
+			<p>
+				<%=errorSignUpMessage %>
+			</p>
+		</div>
+
+		<%}%>
+
 		<form name="signUpForm" class="form-horizontal" action="/auth/signUp" method="post">
 			<div class="form-group">
 				<label for="name" class="col-md-4 col-sm-4 col-xs-12">Name:</label>
@@ -37,7 +50,9 @@
 		<div class="alert alert-danger alert-dismissible fade in" role="alert">
 			<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span>
 			</button>
-			<p><%=errorLoginMessage %></p>
+			<p>
+				<%=errorLoginMessage %>
+			</p>
 		</div>
 
 		<%}%>
@@ -67,7 +82,12 @@
 				</div>
 			</div>
 		</form>
+		<div class="row">
+			<div class="col-md-4 col-sm-4 col-xs-12">
+				<a href="/auth/facebook" class="btn btn-default">
+					Login with Facebook
+				</a>
+			</div>
+		</div>
 	</div>
 </div>
-
-
