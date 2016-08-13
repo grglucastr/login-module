@@ -1,9 +1,16 @@
 <% layout('layout') -%>
 
 <div class="row">
-	<div class="col-md-12">
+	<div class="col-md-6 col-sm-6 col-xs-12">
 		<h2>Welcome, <%=user.displayName%>!</h2>
 	</div>
+
+	<% if(user.photo){ %>
+	<div class="col-md-6 col-sm-6 col-xs-12">
+		<img src="<%=user.photo%>" title="<%=user.displayName%>">
+	</div>
+	<% } %>
+
 </div>
 
 
