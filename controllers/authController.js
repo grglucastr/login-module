@@ -1,18 +1,23 @@
 var authController = function (User) {
 
+	var userService = require('../services/user')(User);
+
 	var signUp = function (req, res) {
-		var newUser = new User({
-			name: req.body.name,
-			email: req.body.email,
-			password: req.body.password
-		});
-
-		newUser.save(function (err, user) {
+		var email = req.body.email;
+		userService.checkUserExists(email, function (err, userFound) {
 			showError(err, res);
-
-			req.login(user, function () {
-				res.redirect('/auth/profile');
-			});
+			if (userFound) {
+				var errMsg = 'This user already exists! Please, use the Sign in form.';
+				req.flash('errorSignUpMessage', errMsg);
+				res.redirect('/');
+			}else{
+				userService.createUser(req, function (err, user) {
+					showError(err, res);
+					req.login(user, function () {
+						res.redirect('/auth/profile');
+					});
+				});
+			}
 		});
 	};
 
