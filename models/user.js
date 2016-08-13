@@ -7,6 +7,4 @@ var userSchema = mongoose.Schema({
 	providerID:String,
 	photo:String
 });
-
-
 module.exports = mongoose.model("User", userSchema);
