@@ -35,13 +35,12 @@ var userServices = function (User) {
 		var userCriteria = {
 			email: profile.emails[0].value,
 			provider: profile.provider,
-			providerID: profileID
+			providerID: profile.id
 		};
 
 		User.findOne(userCriteria, function(err, user) {
 			callback(err, user);
 		});
-
 	};
 
 	var findUser = function(criteria, callback){
