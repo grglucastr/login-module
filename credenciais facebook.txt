@@ -1,0 +1,16 @@
+clientID: '1441798922500688',
+clientSecret: '3956a34fc9dd813efba57421ae068072',
+callbackURL: 'http://localhost:3000/auth/facebook/callback'
+
+{ id: '10206971723238841',
+  username: undefined,
+  displayName: 'George Lucas T. Bentes',
+  name:
+   { familyName: undefined,
+     givenName: undefined,
+     middleName: undefined },
+  gender: undefined,
+  profileUrl: undefined,
+  provider: 'facebook',
+  _raw: '{"name":"George Lucas T. Bentes","id":"10206971723238841"}',
+  _json: { name: 'George Lucas T. Bentes', id: '10206971723238841' } }
